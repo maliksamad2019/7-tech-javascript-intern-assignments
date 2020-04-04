@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2D-Game</title>
+    <style>
+        tr, td{
+            padding: 5px;
+            margin: 0px;
+            border: solid black 2px;
+        }
+    </style>
+</head>
+<body>
+<div style="background-color: #fffa06; text-align: center">
+    <table style="display: inline-block">
+        <tr>
+            <td id="p1_head" style="background-color: green">Player: 1</td>
+            <td id="p2_head">Player: 2</td>
+        </tr>
+        <tr>
+            <td id="p1_score">0</td>
+            <td id="p2_score">0</td>
+        </tr>
+    </table>
+</div>
+
+<canvas id="draw" style="background-color: #fffc9e; min-width: 600px" width="800" height="800"></canvas>
+
+<script>
+    let canvas = document.querySelector('#draw');
+    canvas.width = window.innerWidth;
+    canvas.height = 500+55;
+
+    let ctx = canvas.getContext('2d');
+    let x_index = -1;
+    let y_index = -1;
+    let playGroundMap = [];
+    let edges = [];
+
+    ctx.strokeStyle = 'red';
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = 3;
+
+    let player1_turn = true;
+    let player1_score = 0;
+    let player2_score = 0;
+
+    let player1_head_ele = document.getElementById('p1_head');
+    let player2_head_ele = document.getElementById('p2_head');
+    let player1_score_ele = document.getElementById('p1_score');
+    let player2_score_ele = document.getElementById('p2_score');
+
+
+    for (let x = 1; x <= 10; x++){
+        let arr = [];
+        for (let y = 1; y <= 10; y++) {
+            arr.push([50 * x, 50 * y]);
+        }
+        playGroundMap.push(arr);
+    }
+
+    function createPlayGround(x, y, r, start, end){
+        ctx.beginPath();
+        ctx.arc(x, y, r, start, end);
+        ctx.stroke();
+    }
+
+    let timer = 0;
+    for (let x = 0; x < 10; x++){
+        for (let y = 0; y < 10; y++) {
+            //playGroundMap.push([50 * x, 50 * y]);
+            let item = playGroundMap[x][y];
+            console.log(item);
+            createPlayGround(item[0], item[1], 5, 0, 2* Math.PI)
+        }
+    }
+
+
+    ctx.strokeStyle = 'green';
+    canvas.addEventListener('mousedown', (e)=>{
+        for (let x = 0; x < 10; x++){
+            for (let y = 0; y < 10; y++) {
+                let item = playGroundMap[x][y];
+                if(isInCircle(item[0], item[1], e.offsetX, e.offsetY, 5)){
+                    if(x_index !== -1
+                        && (
+                            (x_index === x && (y_index === y+1 || y_index === y-1) )
+                            || ((y_index === y && (x_index === x+1 || x_index === x-1) ))
+                            )
+                        && containsEdge([x, y, x_index, y_index]) === undefined
+                       ){
+                        ctx.beginPath();
+                        ctx.moveTo(playGroundMap[x_index][y_index][0], playGroundMap[x_index][y_index][1]);
+                        ctx.lineTo(item[0], item[1]);
+                        ctx.stroke();
+                        fillCreatedBox([x, y, x_index, y_index]);
+                        x_index = -1;
+                        y_index = -1;
+                    }else {
+                        x_index = x;
+                        y_index = y;
+                    }
+                }
+            }
+        }
+    });
+
+    /*
+
+    x1,y1 ---- x2,y2
+    |            |
+    x3,y3 ---- x4,y4
+     _ _ _
+    |     |
+    |_ _ _|
+
+     */
+
+    function fillCreatedBox(edge){
+        edges.push(edge);
+        let p1 = playGroundMap[edge[0]][edge[1]];
+        let p2 = playGroundMap[edge[2]][edge[3]];
+        let boxCreated = false;
+        [x1, y1, x2,y2] = edge;
+
+        // Horizontal Line
+        if(edge[1] === edge[3]){
+            let _above = containsEdge([x1, y1-1, x2,y2-1])!== undefined;
+            let _below = containsEdge([x1, y1+1, x2,y2+1])!== undefined;
+            let _above_left = containsEdge([x1, y1, x1,y2-1])!== undefined;
+            let _above_right = containsEdge([x2, y1-1, x2,y2])!== undefined;
+            let _below_left = containsEdge([x1, y1, x1,y2+1])!== undefined;
+            let _below_right = containsEdge([x2, y1+1, x2,y2])!== undefined;
+
+            /*
+            console.log('above: ' , _above !== undefined);
+            console.log('below: ' , _below !== undefined);
+
+            console.log('above-left: ' , _above_left !== undefined);
+            console.log('above-right: ' , _above_right !== undefined);
+
+            console.log('below-left: ' , _below_left !== undefined);
+            console.log('below-right: ' , _below_right !== undefined);
+
+             */
+
+            // p1[0] > p2[0] =>  Left 2 Right
+            if(_above && _above_left && _above_right){
+                if(p1[0] > p2[0])   ctx.fillRect((p1[0]+5)-50, (p1[1]+5)-50, 40 , 40 );
+                else                ctx.fillRect((p1[0]+5), (p1[1]+5)-50, 40 , 40 );
+
+                boxCreated = true;
+                if(player1_turn)  player1_score++;
+                else player2_score++;
+            }
+
+            if(_below && _below_left && _below_right){
+                if(p1[0] > p2[0])   ctx.fillRect((p1[0]+5)-50, (p1[1]+5), 40 , 40 );
+                else                ctx.fillRect((p1[0]+5), (p1[1]+5), 40 , 40 );
+
+                boxCreated = true;
+                if(player1_turn)  player1_score++;
+                else player2_score++;
+            }
+        }
+        // Vertical Line
+        else
+        {
+            let _left = containsEdge([x1-1, y1, x2-1,y2]) !== undefined;
+            let _right = containsEdge([x1+1, y1, x2+1,y2]) !== undefined;
+            let _left_above = containsEdge([x1, y1, x1-1,y1]) !== undefined;
+            let _left_bottom = containsEdge([x2-1, y2, x2,y2]) !== undefined;
+            let _right_above = containsEdge([x1, y1, x2+1,y1]) !== undefined;
+            let _right_bottom = containsEdge([x1+1, y2, x2,y2]) !== undefined;
+
+            /*
+            console.log('Left: ' , _left );
+            console.log('Right: ' , _right );
+
+            console.log('left-above: ' , _left_above );
+            console.log('left-bottom: ' , _left_bottom );
+
+            console.log('right-above: ' , _right_above );
+            console.log('right-bottom: ' , _right_bottom );
+
+             */
+
+            // p1[1] > p2[1] =>  Top 2 Bottom
+            if(_left && _left_above && _left_bottom){
+                if(p1[1] > p2[1])   ctx.fillRect((p1[0]+5)-50, (p1[1]+5)-50, 40 , 40 );
+                else                ctx.fillRect((p1[0]+5)-50, (p1[1]+5), 40 , 40 );
+
+                boxCreated = true;
+                if(player1_turn)  player1_score++;
+                else player2_score++;
+            }
+
+            if(_right && _right_above && _right_bottom){
+                if(p1[1] > p2[1])   ctx.fillRect((p1[0]+5), (p1[1]+5)-50, 40 , 40 );
+                else                ctx.fillRect((p1[0]+5), (p1[1]+5), 40 , 40 );
+
+                boxCreated = true;
+                if(player1_turn) player1_score++;
+                else player2_score++;
+            }
+        }
+
+        if(!boxCreated){
+            player1_turn = !player1_turn;
+            player1_head_ele.style.backgroundColor = player1_turn ? 'green': '';
+            player2_head_ele.style.backgroundColor = !player1_turn ? 'blue': '';
+
+            ctx.strokeStyle = player1_turn ? 'green' : 'blue';
+            ctx.fillStyle = player1_turn ? 'green' : 'blue';
+        }
+
+        player1_score_ele.innerText = "" + player1_score;
+        player2_score_ele.innerText = "" + player2_score;
+
+    }
+
+    function containsEdge(edge){
+            return edges.find(item => {
+                return (
+                    ( edge[0] === item[0] &&
+                        edge[1] === item[1] &&
+                        edge[2] === item[2] &&
+                        edge[3] === item[3] )
+                    ||
+                    (edge[2] === item[0] &&
+                        edge[3] === item[1] &&
+                        edge[0] === item[2] &&
+                        edge[1] === item[3])
+                );
+            })
+    }
+
+    function isInCircle(c_x, c_y, m_x, m_y, r){
+        return (    m_x <= (c_x + r) && (m_x >= (c_x - r) )
+                    &&
+                    m_y <= (c_y + r) && (m_y >= (c_y - r) )      );
+    }
+
+</script>
+
+<style>
+    html, body {
+        margin: 0;
+    }
+</style>
+
+</body>
+</html>
