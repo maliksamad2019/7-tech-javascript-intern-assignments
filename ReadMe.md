@@ -6,7 +6,7 @@
     2. http://api.d.playback.live/api/1.0/user/register
     3. http://api.d.playback.live/api/1.0/user/is-authenticated
 
-#####Create 3 pages: 
+##### Create 3 pages: <br>
     1. Login<br>
     2. Register <br>
     3. Dashboard<br>
