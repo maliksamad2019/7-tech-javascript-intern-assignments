@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <title>Weather Current</title>
+    <script src="search.js"></script>
+    <link rel="stylesheet" href="search.css">
+</head>
+
+<body  >
+
+    <div class="searchMainDiv">
+        <div class="searchOuterDiv">
+            <div class="searchByCountryName">
+                <div>
+                    <span> Country Name:</span><br>
+                    <input type="text" onchange="countryFieldData = this.value" placeholder="Country Name" id="countryNameInputField">
+                </div>
+                <div>
+                    <span>City Name:</span><br>
+                    <input type="text"  onchange="cityFieldData = this.value" placeholder="City Name" id="cityNameInputField">
+                </div>
+            </div>
+
+            <div class="searchByGeoLocation">
+                <h3>Geolocation</h3>
+                <div>Longitude: <br>
+                    <input type="number"  onchange="geolonFieldData = parseFloat(this.value)" placeholder="Longitude" id="geoLonInputField"><br>
+                </div>
+                <div>Latitude: <br>
+                    <input type="number" onchange="geolatFieldData = parseFloat(this.value)" placeholder="latitude" id="geoLatInputField"></div>
+
+            </div>
+
+            <div class="searchByDiv">
+                <h3 >Show Result By:</h3>
+                <input type="button" onclick="searchByCountry()" value="Country Name">
+                <input type="button" onclick="searchByCity()" value="City Name">
+                <input type="button" onclick="searchByGeo()" value="Geo-location">
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <h1 style="text-align: center">Result</h1>
+    <div class="resultMainDiv">
+        <div id="resultOuterDiv">
+        </div>
+    </div>
+
+    <div id="response">     </div>
+
+</body>
+
+</html>

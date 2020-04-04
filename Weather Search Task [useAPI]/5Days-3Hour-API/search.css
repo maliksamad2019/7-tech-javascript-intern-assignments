@@ -1,0 +1,92 @@
+body{
+    font-family: "Agency FB";
+    background: linear-gradient(to bottom, #324a82 0%, #009933 100%);
+}
+
+table, tr, td, thead{
+    text-align: center;
+    border: solid black 1px;
+}
+td{
+    padding: 9px;
+
+}
+
+.outerDiv{
+
+}
+
+.searchMainDiv{
+    text-align: center;
+}
+
+.searchOuterDiv{
+    display: inline-block;
+    text-align: left;
+}
+.searchOuterDiv > div{
+    display: block;
+    margin-top: 10px;
+}
+.searchOuterDiv input{
+    padding: 5px;
+}
+
+.searchOuterDiv > div{
+    text-align: center;
+}
+.searchByCityName{ }
+.searchByCityName > div{
+    text-align: left;
+    display: inline-block;
+}
+
+.searchByGeoLocation{ }
+.searchByGeoLocation > div{
+    text-align: left;
+    display: inline-block;
+}
+.searchByGeoLocation h3{
+    margin: 2px;
+    text-align: center;
+}
+
+.searchByCountryName{ }
+.searchByCountryName > div{
+    text-align: left;
+    display: inline-block;
+}
+
+.searchByDiv{
+    border: solid #ababab 3px;
+    padding: 5px;
+}
+.searchByDiv h3{
+    margin-top: -2px;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+
+
+
+
+
+.resultMainDiv{
+    text-align: center;
+    margin-top: 10px;
+}
+
+#resultOuterDiv {
+    display: inline-block;
+}
+
+.resultItemDiv{
+    padding: 5px;
+    border: solid #b1b1b1 2px;
+    margin-bottom: 10px;
+    width: 800px;
+}
+.resultItemDiv div, table{
+    display: inline-block;
+}

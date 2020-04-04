@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Sign In</title>
+        <link rel="stylesheet" type="text/css" href="./signin.css">
+        <script src="./globalJS.js"></script>
+        <script src="./signin.js"></script>
+    </head>
+    <body onload="getThisUserData()">
+        <div class="mainDiv">
+            <div class="centerdDiv" >
+                <div>
+                    <a href="./signin.html">Sign in</a>
+                    <a style="margin-left: 10px;" href="./signup.html">Sign Up</a>
+                    <a style="margin-left: 10px;" href="./profile.html">Profile</a>
+                </div>
+                <h1>Sign In</h1>
+                <form onsubmit="ajaxSigninRequest(event)" class="innerForm" style="text-align: left;">
+                     
+                    <div class="inputFieldDiv">
+                        UserName:<br>
+                        <input type="text"
+                        id='username-field' 
+                        placeholder="username" 
+                        name='userName'>
+                    </div>
+
+                    <div class="inputFieldDiv">
+                        Password:<br>
+                        <input type="password" 
+                            placeholder="Password" 
+                            id='password-field'
+                            name='password'>
+                    </div>
+                    <br><br>
+                    <input name="sign_in" type="submit" value="Sign in">
+                </form>
+            </div> 
+        </div>
+        <div id='response'></div>
+    </body>
+</html>

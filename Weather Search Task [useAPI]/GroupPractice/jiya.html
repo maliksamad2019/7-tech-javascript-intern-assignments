@@ -1,0 +1,50 @@
+
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="jiya.css">
+</head>
+<body>
+<div>
+    <div>
+        <div>
+            <p>WEATHER</p>
+        </div>
+
+<!--        new Code Start from here-->
+        <div>
+            <input type="text" onchange="setCityName(this.value)">
+            <input type="button" onclick="getByCityName()" value="Search">
+        </div>
+        <br><br>
+        <div>
+            <input type="text" onchange="setLat(this.value)" placeholder="Latitude"><br><br>
+            <input type="text" onchange="setLong(this.value)" placeholder="longitude">
+            <input type="button" onclick="getByGeoLoc()" value="Search">
+        </div>
+<!--        and ends here-->
+
+
+        <div class="notification"></div>
+        <div>
+            <div class="weather-icon">
+                <img src="http://icons/unknown.png" alt="">
+            </div>
+            <div>
+                <p class="temprature-value">- °<span>C</span></p>
+            </div>
+            <div>
+                <p class="temperature-description">-</p>
+            </div>
+            <div>
+                <p class="location">-</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="jiya.js"></script>
+
+</body>
+</html>

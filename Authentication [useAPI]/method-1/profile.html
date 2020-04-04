@@ -1,0 +1,30 @@
+<html>
+    <head> 
+        <title>Profile</title>
+        <link rel="stylesheet" type="text/css" href="profile.css">
+        <script src="./globalJS.js"></script>
+        <script src="./profile.js"></script>
+    </head>
+    <body onload="getThisUserData()">
+        <div class="mainDiv">
+            <div class="centerdDiv" >
+                <div>
+                    <a href="signin.html">Sign in</a>
+                    <a style="margin-left: 10px;" href="signup.html">Sign Up</a>
+                    <a style="margin-left: 10px;" href="profile.html">Profile</a>
+                </div>
+                <h1>DashBoard</h1>
+                <div class="innerForm" style="text-align: left;">
+                    
+                    <div class="inputFieldDiv"> 
+                        <br><br><br><br>
+                        <input type="button" value="Log Out" onclick="LogOut()">
+                    </div> 
+                    
+                </div>
+            </div> 
+        </div>
+
+        <div id="response"></div>
+    </body>
+</html>

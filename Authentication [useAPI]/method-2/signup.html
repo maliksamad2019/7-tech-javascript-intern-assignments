@@ -1,0 +1,83 @@
+<html>
+    <head> 
+        <title>Sign Up</title>
+        <link rel="stylesheet" type="text/css" href="./signup.css">
+        <script src="./globalJS.js"></script>
+        <script src="./signup.js"></script>
+    </head>
+    <body onload="getThisUserData()">
+        <div class="mainDiv">
+            <div class="centerdDiv" >
+                <div>
+                    <a href="./signin.html">Sign in</a>
+                    <a style="margin-left: 10px;" href="./signup.html">Sign Up</a>
+                    <a style="margin-left: 10px;" href="./profile.html">Profile</a>
+                </div>
+                
+                <h1>Sign Up</h1>
+                <form onsubmit="ajaxSignupRequest(event)" class="innerForm" style="text-align: left;">
+                    
+                    <div class="inputFieldDiv">
+                        UserName:<br>
+                        <input required type = "text"
+                        id = 'username-field' 
+                        placeholder = "username">
+                    </div>
+
+                    <div class="inputFieldDiv">
+                        Email:<br>
+                        <input required type = "email" 
+                        placeholder = "Email" 
+                        id = 'email-field'>
+                    </div>
+
+                    <div class="inputFieldDiv">
+                        Password:<br>
+                        <input required type = "password" 
+                            placeholder = "Password"
+                            id = 'password-field' >
+                    </div>
+
+                    <div class="inputFieldDiv">
+                        Conf-Password:<br>
+                        <input required type = "password" 
+                            placeholder = "conf-Password"
+                            id = 'conf-password-field' >
+                    </div>
+
+                    <div class="inputFieldDiv">
+                        Date of Birth:<br>
+                        <input required type = "datetime-local" 
+                            placeholder = "Date of Birth"
+                            id = 'dob-field' >
+                    </div>
+
+                    <div class="inputFieldDiv">
+                        First Name:<br>
+                        <input required type="text"
+                        id='firstName-field' 
+                        placeholder="First Name" >
+                    </div>
+
+                    <div class="inputFieldDiv">
+                        last Name:<br>
+                        <input required type="text"
+                        id='lastName-field' 
+                        placeholder="Last Name"  >
+                    </div>
+
+                    <div class="inputFieldDiv">
+                        Gender:<br>
+                        <input required type = "text" 
+                        placeholder = "Gender" 
+                        id = 'gender-field' >
+                    </div>
+                    <br><br>
+                    <input name="sign_in" type="submit" value="Sign Up">
+                </form>
+            </div> 
+        </div>
+
+        <div id='response'></div>
+    </body>
+</html>
